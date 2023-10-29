@@ -4,3 +4,6 @@
 
 # environment
 .env
+
+# log
+/logs
