@@ -1,9 +1,10 @@
-import express, { Response, Request } from 'express';
+import express, { Request } from 'express';
+import { Res } from '@type/express';
 
 const rootRouter = express.Router();
 
-rootRouter.get('/', (req: Request, res: Response) => {
-  res.send('Hello api!!');
+rootRouter.get('/', (req: Request, res: Res) => {
+  res.send(res.__('hello'));
 });
 
 export default rootRouter;

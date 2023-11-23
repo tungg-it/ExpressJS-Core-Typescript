@@ -26,9 +26,11 @@
     "typeRoots": ["./node_modules/@types"],
     "types": ["node", "express"],
     "paths": {
+      "@type/*": ["src/common/types/*"],
       "@configs/*": ["./src/configs/*"],
       "@helpers/*": ["./src/common/helpers/*"],
       "@enums/*": ["./src/common/enums/*"],
+      "@constants/*": ["./src/common/constants/*"],
       "@routes/*": ["./src/routes/*"],
       "@middlewares/*": ["./src/middlewares/*"]
     }
