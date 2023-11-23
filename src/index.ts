@@ -7,6 +7,7 @@ import config from '@configs/configuration';
 import rootRouter from '@routes/root';
 
 const app: Application = express();
+const host: string = config.host;
 const port: number = config.port;
 const prefix: string = config.prefix;
 const logger = Logger();
@@ -24,6 +25,6 @@ app.use(express.json());
 // Router config
 app.use(`/${prefix}`, rootRouter);
 
-app.listen(port, async () => {
+app.listen(port, host, async () => {
   logger.info(`Application listening at http://localhost:${port}/${prefix}`);
 });

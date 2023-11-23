@@ -11,13 +11,13 @@ const stream = {
 
 // Support fo development config
 const skip = () => {
-  const env = config.env || 'development';
-  return env !== 'development';
+  const environment = config.environment || 'development';
+  return environment !== 'development';
 };
 
 // Define format
 const format =
-  ':remote-addr :method :url :status :res[content-length] - :response-time ms';
+  '[:method] HOST::remote-addr PATH::url CODE::status +:response-time ms';
 
 // Create morgan middleware
 const morganMiddleware = morgan(format, { stream, skip });

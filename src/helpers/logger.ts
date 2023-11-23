@@ -13,8 +13,8 @@ const Logger = () => {
 
   // Add level to winston
   const level = () => {
-    const env = config.env || 'development';
-    const isDevelopment = env === 'development';
+    const environment = config.environment || 'development';
+    const isDevelopment = environment === 'development';
     return isDevelopment ? 'debug' : 'warn';
   };
 

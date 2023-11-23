@@ -1,4 +1,4 @@
-- Node v16.0.0
+- Node v16.14.0
 - Use yarn
 - Add variables in .env
 
