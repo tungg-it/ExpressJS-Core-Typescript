@@ -1,5 +1,5 @@
 import morgan from 'morgan';
-import Logger from '../helpers/logger';
+import Logger from '@helpers/logger';
 import config from '@configs/configuration';
 
 const logger = Logger();
