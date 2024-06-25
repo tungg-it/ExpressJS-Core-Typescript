@@ -10,10 +10,10 @@ const stream = {
 };
 
 // Support fo development config
-const skip = () => {
+function skip() {
   const environment = config.environment || 'development';
   return environment !== 'development';
-};
+}
 
 // Define format
 const format =

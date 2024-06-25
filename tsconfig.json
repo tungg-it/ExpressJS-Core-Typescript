@@ -32,7 +32,8 @@
       "@enums/*": ["./src/common/enums/*"],
       "@constants/*": ["./src/common/constants/*"],
       "@routes/*": ["./src/routes/*"],
-      "@middlewares/*": ["./src/middlewares/*"]
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@apis/*": ["./src/apis/*"]
     }
   },
   "include": ["src/**/*"],
