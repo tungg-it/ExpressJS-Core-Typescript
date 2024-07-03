@@ -9,6 +9,7 @@ import constants from '@constants/constants';
 import morganMiddleware from '@apis/morgan.middleware';
 import i18nMiddleware from '@apis/i18n.middleware';
 import router from '@apis/router';
+import { ResponseMiddleware } from './response.middleware';
 
 /**
  * Abstraction around the raw Express.js server and Nodes' HTTP server.
@@ -27,7 +28,7 @@ export class ExpressServer {
     this.setupSecurityMiddlewares(server);
     this.configureRoutes(server);
     this.setupI18nMiddlewares(server);
-    // this.setupErrorHandlers(server);
+    this.setupErrorHandlers(server);
 
     this.httpServer = this.listen(server, port);
     this.server = server;
@@ -95,14 +96,14 @@ export class ExpressServer {
     server.use(i18nMiddleware);
   }
 
-  // private setupErrorHandlers(server: Express) {
-  //   // if error is not an instanceOf APIError, convert it.
-  //   server.use(ResponseMiddleware.converter);
+  private setupErrorHandlers(server: Express) {
+    // if error is not an instanceOf APIError, convert it.
+    server.use(ResponseMiddleware.converter);
 
-  //   // catch 404 and forward to error handler
-  //   server.use(ResponseMiddleware.notFound);
+    // catch 404 and forward to error handler
+    server.use(ResponseMiddleware.notFound);
 
-  //   // error handler, send stacktrace only during development
-  //   server.use(ResponseMiddleware.handler);
-  // }
+    // error handler, send stacktrace only during development
+    server.use(ResponseMiddleware.handler);
+  }
 }

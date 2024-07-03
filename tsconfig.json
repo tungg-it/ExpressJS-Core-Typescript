@@ -31,6 +31,7 @@
       "@helpers/*": ["./src/common/helpers/*"],
       "@enums/*": ["./src/common/enums/*"],
       "@constants/*": ["./src/common/constants/*"],
+      "@errors/*": ["./src/common/errors/*"],
       "@routes/*": ["./src/routes/*"],
       "@middlewares/*": ["./src/middlewares/*"],
       "@apis/*": ["./src/apis/*"]
