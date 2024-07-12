@@ -23,7 +23,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["@types", "./node_modules/@types"],
     "types": ["node", "express"],
     "paths": {
       "@type/*": ["src/common/types/*"],

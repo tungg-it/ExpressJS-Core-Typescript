@@ -11,6 +11,10 @@ import i18nMiddleware from '@apis/i18n.middleware';
 import router from '@apis/router';
 import { ResponseMiddleware } from './response.middleware';
 
+express.response.sendJson = function (data: object) {
+  return this.json({ error_code: 0, message: 'OK', data });
+};
+
 /**
  * Abstraction around the raw Express.js server and Nodes' HTTP server.
  * Defines HTTP request mappings, basic as well as request-mapping-specific
@@ -26,8 +30,8 @@ export class ExpressServer {
     this.setupCorsMiddlewares(server);
     this.setupStandardMiddlewares(server);
     this.setupSecurityMiddlewares(server);
-    this.configureRoutes(server);
     this.setupI18nMiddlewares(server);
+    this.configureRoutes(server);
     this.setupErrorHandlers(server);
 
     this.httpServer = this.listen(server, port);

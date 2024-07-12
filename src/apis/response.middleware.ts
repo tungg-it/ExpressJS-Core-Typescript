@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import e, { NextFunction, Request, Response } from 'express';
 import { ValidationError } from 'express-validation';
 import httpStatus from 'http-status';
 
@@ -35,13 +35,10 @@ export class ResponseMiddleware {
       errors: err.errors,
     };
 
-    console.log(111, config.environment);
     if (config.environment !== 'development') {
       delete response.stack;
       delete response.errors;
     }
-
-    console.log(222, response);
 
     res.status(status);
     res.json(response);
@@ -83,12 +80,7 @@ export class ResponseMiddleware {
     }
     // log error for status >= 500
     if (convertedError.status >= httpStatus.INTERNAL_SERVER_ERROR) {
-      ResponseMiddleware.logger.error('Process request error:', {
-        stringData: JSON.stringify(err),
-        originalUrl: req.originalUrl,
-        body: req.body,
-        rawHeaders: req.rawHeaders,
-      });
+      ResponseMiddleware.logger.error('Process request error:', err);
     }
 
     return ResponseMiddleware.handler(convertedError, req, res, next);

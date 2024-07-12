@@ -13,8 +13,7 @@ const Logger = () => {
 
   // Add level to winston
   const level = () => {
-    const environment = config.environment || 'development';
-    const isDevelopment = environment === 'development';
+    const isDevelopment = config.environment === 'development';
     return isDevelopment ? 'debug' : 'warn';
   };
 
@@ -44,16 +43,21 @@ const Logger = () => {
   );
 
   // Define file log for error
-  const transports = [
-    new winston.transports.Console(),
-    new winston.transports.File({
-      filename: 'logs/error.log',
-      level: 'error',
-    }),
+  let transports;
+  if (config.environment === 'development') {
+    transports = [
+      new winston.transports.Console(),
+      new winston.transports.File({
+        filename: 'logs/error.log',
+        level: 'error',
+      }),
 
-    // Write all logs
-    // new winston.transports.File({ filename: 'logs/all.log' }),
-  ];
+      // Write all logs
+      // new winston.transports.File({ filename: 'logs/all.log' }),
+    ];
+  } else {
+    transports = [new winston.transports.Console()];
+  }
 
   // Create Log
   return winston.createLogger({

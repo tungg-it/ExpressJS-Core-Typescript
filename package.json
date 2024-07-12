@@ -1,8 +1,19 @@
 {
   "name": "express-core-ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express core typescript by TungIT",
+  "author": "TungIT <tung.webdeveloper@gmail.com>",
+  "license": "ISC",
   "main": "index.ts",
+  "keywords": [
+    "express-core-ts",
+    "typescript",
+    "express",
+    "tungit",
+    "node",
+    "core",
+    "ts"
+  ],
   "scripts": {
     "start": "node -r ./tsconfig-paths.js dist/src/index.js",
     "start:dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
@@ -10,11 +21,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
-  "keywords": [
-    "express-core-ts"
-  ],
-  "author": "Tran Thanh Tung",
-  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dayjs": "^1.11.10",
