@@ -3,13 +3,13 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { Server } from 'http';
 
+import router from '@apis/router';
 import Logger from '@helpers/logger';
 import config from '@configs/configuration';
 import constants from '@constants/constants';
-import morganMiddleware from '@apis/morgan.middleware';
-import i18nMiddleware from '@apis/i18n.middleware';
-import router from '@apis/router';
-import { ResponseMiddleware } from './response.middleware';
+import morganMiddleware from '@apis/middlewares/morgan.middleware';
+import i18nMiddleware from '@apis/middlewares/i18n.middleware';
+import { ResponseMiddleware } from '@apis/middlewares//response.middleware';
 
 express.response.sendJson = function (data: object) {
   return this.json({ error_code: 0, message: 'OK', data });
@@ -81,7 +81,7 @@ export class ExpressServer {
   }
 
   private configureRoutes(server: Express) {
-    server.use(router);
+    server.use('/' + config.prefix, router);
   }
 
   private setupCorsMiddlewares(server: Express) {
@@ -101,13 +101,10 @@ export class ExpressServer {
   }
 
   private setupErrorHandlers(server: Express) {
-    // if error is not an instanceOf APIError, convert it.
-    server.use(ResponseMiddleware.converter);
-
-    // catch 404 and forward to error handler
+    //catch 404 and forward to error handler
     server.use(ResponseMiddleware.notFound);
 
-    // error handler, send stacktrace only during development
-    server.use(ResponseMiddleware.handler);
+    // if error is not an instanceOf APIError, convert it.
+    server.use(ResponseMiddleware.converter);
   }
 }

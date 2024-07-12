@@ -31,13 +31,6 @@ module.exports = {
       },
     ],
     'no-multi-str': 0,
-    indent: [
-      'warn',
-      2,
-      {
-        SwitchCase: 1,
-      },
-    ],
     'comma-dangle': 'off',
     'object-curly-newline': 'off',
     'arrow-parens': 'off',

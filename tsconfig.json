@@ -34,7 +34,8 @@
       "@errors/*": ["./src/common/errors/*"],
       "@routes/*": ["./src/routes/*"],
       "@middlewares/*": ["./src/middlewares/*"],
-      "@apis/*": ["./src/apis/*"]
+      "@apis/*": ["./src/apis/*"],
+      "@biz/*": ["./src/biz/*"]
     }
   },
   "include": ["src/**/*"],

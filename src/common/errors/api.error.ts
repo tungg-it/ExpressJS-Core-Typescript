@@ -1,4 +1,5 @@
 import { HttpCode } from '@enums/index';
+import { ValidationError } from 'class-validator';
 import { errors } from 'express-validation';
 
 interface APIErrorParams {
@@ -54,5 +55,43 @@ export class APIError extends Error {
       this.errorCode = errorCode;
     }
     this.messageData = messageData;
+  }
+}
+
+export class CustomValidatorError extends Error {
+  public status: number;
+  public errorCode: number;
+  public errors?: ValidationError[] | Error | errors; // Updated type
+
+  /**
+   * Creates an API error.
+   * @param {ValidationError[]} errors
+   * @param errorCode
+   * @param {number} status - HTTP status code of error.
+   */
+
+  constructor({
+    errors: errs,
+    errorCode,
+    status,
+  }: {
+    errors: ValidationError[];
+    errorCode: number;
+    status: number;
+  }) {
+    if (
+      Array.isArray(errs) &&
+      errs.every((err) => err instanceof ValidationError)
+    ) {
+      super(errs.map((err) => err.constraints).join(', '));
+      this.errors = errs;
+    } else {
+      // If not, use the original error message
+      super('Validation error');
+      this.errors = errs;
+    }
+
+    this.status = status;
+    this.errorCode = errorCode;
   }
 }
