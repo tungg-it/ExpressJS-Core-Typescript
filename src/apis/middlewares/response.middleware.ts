@@ -5,6 +5,7 @@ import config from '@configs/configuration';
 import { APIError, CustomValidatorError } from '@errors/api.error';
 import Logger from '@helpers/logger';
 import { HttpCode } from '@enums/index';
+import { ValidationError } from 'class-validator';
 
 export class ResponseMiddleware {
   /**
@@ -14,7 +15,7 @@ export class ResponseMiddleware {
    * @param res
    * @param next
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   private static logger = Logger();
   static handler(
     err: APIError,
@@ -62,8 +63,26 @@ export class ResponseMiddleware {
   ): void {
     let convertedError: APIError;
     if (err instanceof CustomValidatorError) {
+      let errorMessages = ['Validator error']; // Default message
+
+      if (err.errors instanceof Array) {
+        // If errors is an array, extract messages from ValidationErrors
+        errorMessages = err.errors
+          .filter((err) => err instanceof ValidationError)
+          .map((err) => {
+            if (err.constraints) {
+              return Object.values(err.constraints)[0];
+            }
+            return '';
+          })
+          .filter(Boolean); // Remove any empty string;
+      } else if (err.errors instanceof Error) {
+        // If errors is a single Error object, use its message
+        errorMessages = [err.errors.message];
+      }
+
       convertedError = new APIError({
-        message: 'Validator error',
+        message: errorMessages[0],
         status: err.status,
         stack: err.errors[0],
         errorCode: 1,
